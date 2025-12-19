@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-export default function Navvar() {
+export default function Navbar() {
   const { user, logout } = useAuth();
 
   return (
@@ -11,14 +11,17 @@ export default function Navvar() {
       </Link>
 
       <div className="flex gap-4 items-center">
-        {user?.role === "admin" && (
+        {user?.role === "admin" && ( // ✅ Fixed: Check for admin
           <Link to="/admin" className="hover:underline">
             Admin
           </Link>
         )}
-        <button onClick={logout} className="bg-red-600 px-3 py-1 rounded">
-          Logout
-        </button>
+
+        {user && (
+          <button onClick={logout} className="bg-red-600 px-3 py-1 rounded">
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );

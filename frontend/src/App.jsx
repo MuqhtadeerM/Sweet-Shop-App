@@ -1,4 +1,3 @@
-import "./App.css";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { Route, Routes, Link } from "react-router-dom";
 import Login from "./pages/Login";
@@ -14,16 +13,14 @@ function Navbar() {
     <nav className="bg-gray-800 text-white p-4 flex justify-between">
       <div className="flex gap-4">
         <Link to="/">Dashboard</Link>
-        {user?.user?.role === "admin" && <Link to="/admin">Admin</Link>}
+        {user?.role === "admin" && <Link to="/admin">Admin</Link>}
       </div>
+
       <div>
         {user ? (
-          <div className="flex gap-4 items-center">
-            <span>Welcome, {user.user?.name}!</span>
-            <button onClick={logout} className="bg-red-600 px-3 py-1 rounded">
-              Logout
-            </button>
-          </div>
+          <button onClick={logout} className="bg-red-600 px-3 py-1 rounded">
+            Logout
+          </button>
         ) : (
           <Link to="/login">Login</Link>
         )}
@@ -48,6 +45,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/admin"
           element={

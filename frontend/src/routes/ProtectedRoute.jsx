@@ -5,11 +5,11 @@ export default function ProtectedRoute({ children, admin }) {
   const { user } = useAuth();
 
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
-  if (admin && user.user?.role !== "admin") {
-    return <Navigate to="/" />;
+  if (admin && user.role !== "admin") {
+    return <Navigate to="/" replace />;
   }
 
   return children;
