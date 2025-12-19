@@ -6,17 +6,23 @@ import sweetRoutes from "./routes/sweet.routes.js";
 const app = express();
 
 // accepts the application incoming request in backend
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true, // ✅ Add this
+  })
+);
 
 // this add the middleware
 app.use(express.json());
 
 // this is get route defining here /
 app.use("/api/auth", authRoutes);
-app.use("/api/sweet", sweetRoutes);
+app.use("/api/sweets", sweetRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Sweet Shop API");
+app.use((req, res) => {
+  console.log("❌ Route not found:", req.method, req.url);
+  res.status(404).json({ message: "Route not found" });
 });
 
 export default app;

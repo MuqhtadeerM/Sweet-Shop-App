@@ -1,13 +1,23 @@
 import Sweet from "../models/sweet.model.js";
 
 export const addSweet = async (req, res) => {
-  const sweet = await Sweet.create(req.body);
-  res.status(201).json(sweet);
+  try {
+    const sweet = await Sweet.create(req.body);
+    res.status(201).json(sweet);
+  } catch (error) {
+    console.error("Add Sweet Error:", error);
+    res.status(500).json({ message: "Falied to Add Sweet" });
+  }
 };
 
 export const getAllSweets = async (req, res) => {
-  const sweets = await Sweet.find();
-  res.json(sweets);
+  try {
+    const sweets = await Sweet.find();
+    res.json(sweets);
+  } catch (error) {
+    console.error("Get sweets errors:", error);
+    res.status(500).json({ message: "Failed to fetch sweets" });
+  }
 };
 
 export const searchSweets = async (req, res) => {
